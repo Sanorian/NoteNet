@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: backend
+    networks:
+      - database_network
+
+  frontend:
+    build: frontend
+    networks:
+      - database_network
+
+  db:
+    image: mysql:latest
+    networks:
+      - database_network
+
+networks:
+  database_network:
+
+secrets:
