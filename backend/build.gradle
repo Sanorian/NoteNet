@@ -20,6 +20,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc10
+	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc10', version: '19.12.0.0'
 }
 
 tasks.named('test') {
