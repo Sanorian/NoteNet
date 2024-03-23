@@ -28,7 +28,7 @@ paths:
                 type: object
                 properties:
                   res:
-                    boolean
+                    type: boolean
         '409':
           description: Пользователь с такой почтой уже существует
           content:
@@ -37,7 +37,7 @@ paths:
                 type: object
                 properties:
                   res:
-                    boolean
+                    type: boolean
         '500':
           description: Пользователь с такой почтой уже существует
           content:
@@ -46,4 +46,4 @@ paths:
                 type: object
                 properties:
                   res:
-                    boolean
+                    type: boolean
