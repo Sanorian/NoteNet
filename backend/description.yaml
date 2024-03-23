@@ -2,10 +2,18 @@ openapi: 3.0.0
 info:
   title: NoteNet API
   version: 0.0.1
+  description: Java Spring Boot бэкенд для NoteNet
+tags:
+  - name: Пользователи
+    description: Операции с пользователями
+  - name: Заметки
+    description: Операции с заметками
 paths:
   /registration:
     put:
       summary: Создание нового пользователя
+      tags:
+        - Пользователи
       requestBody:
         required: true
         content:
@@ -15,10 +23,18 @@ paths:
               properties:
                 email:
                   type: string
+                  example: example@example.com
+                  format: email
                 username:
                   type: string
+                  example: exampleusername
                 password:
                   type: string
+                  example: examplepassword
+            example:
+              email: 'example@example.com'
+              username: 'john'
+              pasword: '12345678'
       responses:
         '201':
           description: Пользователь создан успешно
@@ -29,6 +45,9 @@ paths:
                 properties:
                   res:
                     type: boolean
+                    example: true
+              example:
+                res: true
         '409':
           description: Пользователь с такой почтой уже существует
           content:
@@ -38,6 +57,9 @@ paths:
                 properties:
                   res:
                     type: boolean
+                    example: false
+              example:
+                res: false
         '500':
           description: Пользователь с такой почтой уже существует
           content:
@@ -47,3 +69,6 @@ paths:
                 properties:
                   res:
                     type: boolean
+                    example: false
+              example:
+                res: false
