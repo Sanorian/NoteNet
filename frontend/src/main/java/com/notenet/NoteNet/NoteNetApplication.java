@@ -1,4 +1,4 @@
-package com.notenet;
+package com.notenet.NoteNet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class NoteNetApplication {
 	static String registration;
 
 	public static void main(String[] args) throws IOException {
-		index = com.notenet.FileReader.readFile("pages/index.html");
+		index = com.notenet.NoteNet.FileReader.readFile("pages/index.html");
 		SpringApplication.run(NoteNetApplication.class, args);
 	}
 

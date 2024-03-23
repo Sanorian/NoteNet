@@ -1,4 +1,4 @@
-package com.notenet;
+package com.notenet.NoteNet;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
