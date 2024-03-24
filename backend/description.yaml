@@ -25,16 +25,12 @@ paths:
                   type: string
                   example: example@example.com
                   format: email
-                username:
-                  type: string
-                  example: exampleusername
                 password:
                   type: string
                   example: examplepassword
             example:
               email: 'example@example.com'
-              username: 'john'
-              pasword: '12345678'
+              password: '12345678'
       responses:
         '201':
           description: Пользователь создан успешно
