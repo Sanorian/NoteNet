@@ -24,8 +24,8 @@ paths:
               properties:
                 email:
                   type: string
-                  example: example@example.com
                   format: email
+                  example: example@example.com
                 password:
                   type: string
                   example: examplepassword
@@ -84,8 +84,8 @@ paths:
               properties:
                 email:
                   type: string
-                  example: example@example.com
                   format: email
+                  example: example@example.com
                 password:
                   type: string
                   example: examplepassword
@@ -131,7 +131,7 @@ paths:
                 res: false
 
   /delete:
-    post:
+    delete:
       summary: Удаление аккаунта
       tags:
         - Пользователи
@@ -144,8 +144,8 @@ paths:
               properties:
                 email:
                   type: string
-                  example: example@example.com
                   format: email
+                  example: example@example.com
                 password:
                   type: string
                   example: examplepassword
@@ -166,17 +166,516 @@ paths:
               example:
                 res: true
         '204':
-        description: Такого аккаунта нет
+          description: Такого аккаунта нет
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+  /change_email:
+    update:
+      summary: Смена почты
+      tags:
+        - Пользователи
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                res:
-                  type: boolean
-                  example: false
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                new_email:
+                  type: string
+                  format: email
+                  example: example2@example.com
             example:
-              res: false
+              email: 'example@example.com'
+              password: 'examplepassword'
+              new_email: 'example2@example.com'
+      responses:
+        '200':
+          description: Почта сменена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: true
+        '204':
+          description: Почта не сменена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+  /change_password:
+    update:
+      summary: Смена пароля
+      tags:
+        - Пользователи
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                new_password:
+                  type: string
+                  example: examplepassword2
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+              new_password: 'examplepassword2'
+      responses:
+        '200':
+          description: Пароль сменен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: true
+        '204':
+          description: Пароль не сменен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+  /:
+    post:
+      summary: Получение заметок
+      tags:
+        - Заметки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+      responses:
+        '200':
+          description: Заметки получены
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        note_id:
+                          type: integer
+                          format: int64
+                          example: 1
+                        note_name:
+                          type: string
+                          example: Note1
+                        note_text:
+                          type: string
+                          example: Buy the food
+                        note_type:
+                          type: string
+                          example: standard
+                        example:
+                          note_id: 1
+                          note_name: "Note1"
+                          note_text: "Buy the food"
+                          type: "markdown"
+        '204':
+          description: Заметок нет
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          format: int64
+                          example: 1
+                        note_name:
+                          type: string
+                          example: Note1
+                        note_text:
+                          type: string
+                          example: Buy the food
+                        type:
+                          type: string
+                          example: standard
+                        example:
+                          note_id: 1
+                          note_name: "Note1"
+                          note_text: "Buy the food"
+                          note_type: "markdown"
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+  /create_note:
+    put:
+      summary: Добавление заметки
+      tags:
+        - Заметки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                note_name:
+                  type: string
+                  example: Note1
+                note_text:
+                  type: string
+                  example: Buy the food
+                note_type:
+                  type: string
+                  example: standard
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+              note_name: 'Note1'
+              note_text: 'Buy the food'
+              note_type: 'standard'
+      responses:
+        '200':
+          description: Заметка добавлена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+                  id:
+                    type: int
+                    format: int64
+                    example: 1
+              example:
+                res: true
+                id: 1
+        '400':
+          description: Заметка не добавлена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+
+  /parse_note:
+    post:
+      summary: Парсинг заметки из markdown в html
+      tags:
+        - Заметки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                note_name:
+                  type: string
+                  example: Note1
+                note_text:
+                  type: string
+                  example: '# Buy the food'
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+              note_name: 'Note1'
+              note_text: '# Buy the food'
+      responses:
+        '200':
+          description: Парсинг прошел успешно
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                note_name:
+                  type: string
+                  example: Note1
+                note_text:
+                  type: string
+                  example: <h1>Buy the food</h1>
+              example:
+                note_name: 'Note1'
+                note_text: '<h1>Buy the food</h1>'
+        '400':
+          description: Парсинг провалился
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+
+  /update_note:
+    update:
+      summary: Изменение заметки
+      tags:
+        - Заметки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                note_id:
+                  type: int
+                  format: int64
+                  example: 1
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+              note_id: 1
+      responses:
+        '200':
+          description: Заметка изменена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: true
+              example:
+                res: true
+        '400':
+          description: Заметка не изменена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+  /delete_note:
+    delete:
+      summary: Удаление заметки
+      tags:
+        - Заметки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                password:
+                  type: string
+                  example: examplepassword
+                note_id:
+                  type: int
+                  format: int64
+                  example: 1
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+              note_id: 1
+      responses:
+        '200':
+          description: Заметка удалена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: true
+              example:
+                res: true
+        '400':
+          description: Заметка не удалена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
         '500':
           description: Сервер сломался
           content:
