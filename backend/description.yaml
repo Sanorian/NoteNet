@@ -8,6 +8,7 @@ tags:
     description: Операции с пользователями
   - name: Заметки
     description: Операции с заметками
+
 paths:
   /registration:
     put:
@@ -30,7 +31,7 @@ paths:
                   example: examplepassword
             example:
               email: 'example@example.com'
-              password: '12345678'
+              password: 'examplepassword'
       responses:
         '201':
           description: Пользователь создан успешно
@@ -57,7 +58,127 @@ paths:
               example:
                 res: false
         '500':
-          description: Пользователь с такой почтой уже существует
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+
+  /login:
+    post:
+      summary: Вход пользователя
+      tags:
+        - Пользователи
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+                  format: email
+                password:
+                  type: string
+                  example: examplepassword
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+      responses:
+        '200':
+          description: Пользователь существует
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: true
+              example:
+                res: true
+        '204':
+          description: Пользователь не существует
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: true
+              example:
+                res: true
+        '500':
+          description: Сервер сломался
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: false
+
+  /delete:
+    post:
+      summary: Удаление аккаунта
+      tags:
+        - Пользователи
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+                  format: email
+                password:
+                  type: string
+                  example: examplepassword
+            example:
+              email: 'example@example.com'
+              password: 'examplepassword'
+      responses:
+        '200':
+          description: Аккаунт успещно удален
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: boolean
+                    example: false
+              example:
+                res: true
+        '204':
+        description: Такого аккаунта нет
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                res:
+                  type: boolean
+                  example: false
+            example:
+              res: false
+        '500':
+          description: Сервер сломался
           content:
             application/json:
               schema:
