@@ -1,10 +1,15 @@
 package com.notenet.NoteNet;
 
 public class Note {
-    private Integer id;
-    private String text;
-    public Note(Integer id, String text){
-        this.id = id;
+    private String text, name;
+    public Note(String text, String name){
+        this.name = name;
         this.text = text;
+    }
+    public String getText(){
+        return this.text;
+    }
+    public String getName(){
+        return this.name;
     }
 }
