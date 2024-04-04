@@ -688,3 +688,44 @@ paths:
                     example: false
               example:
                 res: false
+  /test:
+    summary: Тестирование заметки
+    tags:
+      - Заметки
+    responses:
+      '200':
+        description: Сервер функционирует
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                res:
+                  type: boolean
+                  example: true
+            example:
+              res: true
+      '400':
+        description: Сервер не функционирует
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                res:
+                  type: boolean
+                  example: false
+            example:
+              res: false
+      '500':
+        description: Сервер сломался
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                res:
+                  type: boolean
+                  example: false
+            example:
+              res: false
