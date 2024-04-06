@@ -42,6 +42,7 @@ public class NoteNetApplication {
 
 	@PostMapping("/parse_note")
 	public ResponseEntity<String> parseNote(@RequestBody com.notenet.NoteNet.Note note) {
+		// Добавить проверку на существование юзера
 		MutableDataSet options = new MutableDataSet();
 		options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
 		Parser parser = Parser.builder(options).build();
