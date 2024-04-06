@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 //JDBC
 import java.sql.*;
 import java.nio.file.*;
@@ -40,15 +41,24 @@ public class NoteNetApplication {
 	}
 
 	@PostMapping("/parse_note")
-	public String parseNote(@ResponseBody com.notenet.NoteNet.Note note) {
+	public ResponseEntity<String> parseNote(@RequestBody com.notenet.NoteNet.Note note) {
 		MutableDataSet options = new MutableDataSet();
 		options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
-
 		Parser parser = Parser.builder(options).build();
 		HtmlRenderer renderer = HtmlRenderer.builder(options).build();
-
-		Node document = parser.parse(noter.getText());
+		Node document = parser.parse(note.getText());
 		String html = renderer.render(document);
+		Map<String, String> response = new HashMap<>();
+		response.put("note_name", note.getName());
+		response.put("note_text", html);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			String jsonResponse = objectMapper.writeValueAsString(response);
+			return ResponseEntity.status(HttpStatus.OK).body(jsonResponse);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing JSON");
+		}
 	}
 	public static Connection getConnection() throws SQLException, IOException{
 
