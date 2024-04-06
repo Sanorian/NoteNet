@@ -130,7 +130,7 @@ paths:
               example:
                 res: false
 
-  /delete:
+  /delete_user:
     delete:
       summary: Удаление аккаунта
       tags:
@@ -189,6 +189,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /change_email:
     update:
       summary: Смена почты
@@ -253,6 +254,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /change_password:
     update:
       summary: Смена пароля
@@ -316,6 +318,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /:
     post:
       summary: Получение заметок
@@ -411,6 +414,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /create_note:
     put:
       summary: Добавление заметки
@@ -624,6 +628,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /delete_note:
     delete:
       summary: Удаление заметки
@@ -688,6 +693,7 @@ paths:
                     example: false
               example:
                 res: false
+
   /test:
     summary: Тестирование заметки
     tags:
